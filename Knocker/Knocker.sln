@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnockerCore", "KnockerCore\KnockerCore.csproj", "{E3923AC6-733B-4A85-AFCF-D8B26359DB80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnockerUI", "KnockerUI\KnockerUI.csproj", "{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3923AC6-733B-4A85-AFCF-D8B26359DB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3923AC6-733B-4A85-AFCF-D8B26359DB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3923AC6-733B-4A85-AFCF-D8B26359DB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3923AC6-733B-4A85-AFCF-D8B26359DB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7310BABD-A7F0-4D28-A85E-304244FC2011}
+	EndGlobalSection
+EndGlobal

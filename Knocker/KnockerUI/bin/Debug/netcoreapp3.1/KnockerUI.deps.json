@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "KnockerUI/1.0.0": {
+        "dependencies": {
+          "KnockerCore": "1.0.0"
+        },
+        "runtime": {
+          "KnockerUI.dll": {}
+        }
+      },
+      "KnockerCore/1.0.0": {
+        "runtime": {
+          "KnockerCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "KnockerUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "KnockerCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
