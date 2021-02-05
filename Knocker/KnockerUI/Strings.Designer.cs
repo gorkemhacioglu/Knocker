@@ -61,6 +61,24 @@ namespace KnockerUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scan Cancelled.
+        /// </summary>
+        internal static string Cancelled {
+            get {
+                return ResourceManager.GetString("Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanned Succesfully.
+        /// </summary>
+        internal static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starting ip value is not okay. Please review it..
         /// </summary>
         internal static string FromHostIpNotOk {

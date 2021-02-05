@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Scan Cancelled</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Scanned Succesfully</value>
+  </data>
   <data name="FromHostIpNotOk" xml:space="preserve">
     <value>Starting ip value is not okay. Please review it.</value>
   </data>

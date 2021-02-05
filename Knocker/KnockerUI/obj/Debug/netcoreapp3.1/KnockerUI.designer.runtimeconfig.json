@@ -6,8 +6,8 @@
       "version": "3.1.0"
     },
     "additionalProbingPaths": [
-      "C:\\Users\\Görkem\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Görkem\\.nuget\\packages",
+      "C:\\Users\\gorke\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\gorke\\.nuget\\packages",
       "C:\\Microsoft\\Xamarin\\NuGet"
     ],
     "configProperties": {

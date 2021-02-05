@@ -1,5 +1,6 @@
 ﻿using KnockerCore;
 using KnockerCore.DTO;
+using KnockerCore.DTO.Interface;
 using KnockerCore.Helper;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static KnockerCore.Helper.Factory;
 
 namespace Knocker
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMessageListener
     {
         private MainStatusDto _mainStatus = new KnockerCore.DTO.MainStatusDto();
 
@@ -25,13 +28,25 @@ namespace Knocker
 
         private ResourceManager _resourceManager = new ResourceManager("KnockerUI.Strings", Assembly.GetExecutingAssembly());
 
+        private BindingSource _gridBindingSource = new BindingSource();
+
         private Core core = new Core();
+
+        private Task _mainTask = null;
+
+        private CancellationTokenSource _tokenSource = null;
+
+        private int limitation = 500;
 
         public MainForm()
         {
             InitializeComponent();
 
+            openPortsDataGrid.DataSource = _gridBindingSource;
+
             Debug.WriteLine("çalıştı");
+
+            Broadcaster().AddListener(this);
         }
 
         private void btnStartScan_Click(object sender, EventArgs e)
@@ -40,57 +55,45 @@ namespace Knocker
             {
                 if (!_mainStatus.IsRunning && IsReady())
                 {
-                    //Starting to scan
-
+                    _tokenSource = new CancellationTokenSource();
+                    CancellationToken token = this._tokenSource.Token;
+                    _gridBindingSource.Clear();
+                    DeleteFromInfo("Completed");
                     int fromPort = 0;
                     int toPort = 0;
-                    bool fPort = Int32.TryParse(txtFromPort.Text, out fromPort);
-                    bool tPort = Int32.TryParse(txtToPort.Text, out toPort);
-
-                    if (fPort && tPort)
+                    if (int.TryParse(txtFromPort.Text, out fromPort) & int.TryParse(txtToPort.Text, out toPort))
                     {
-                        var ret = core.StartScanning(txtFromHostIp.Text, txtToHostIp.Text, fromPort, toPort);
-                        if (ret)
-                            AddToInfo("PortIsOpen");
-                        else
-                            AddToInfo("PortIsClosed");
-
+                        try
+                        {
+                            _mainTask = Task.Run((Action)(() => core.StartScanning(txtFromHostIp.Text, txtToHostIp.Text, fromPort, toPort, limitation, token)), _tokenSource.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
+                        }
                         lblStatusIndicator.Text = GetFromResource("Running");
                         _mainStatus.IsRunning = true;
                         btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_stop.png");
                     }
-                    else 
+                    else
                     {
                         _mainStatus.IsRunning = false;
                         infoMessageDisplayer.Text = GetFromResource("PortValuesNotOk");
                     }
                 }
-                else 
-                {
-                    //Stopping scan
-
-                    lblStatusIndicator.Text = GetFromResource("Stopped");
-                    _mainStatus.IsRunning = false;
-                    btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_start.png");
-                }
-                
+                else
+                    StopCurrentTask();
             }
             catch (Exception)
             {
-
-                throw;
+                //ignored
             }
         }
 
         private void txtFromHostIp_TextChanged(object sender, EventArgs e)
         {
-            var hostIp = txtFromHostIp.Text;
-
-            bool res = _regexChecker.CheckIpAddress(hostIp);
-
-            if (!res)
+            if (!_regexChecker.CheckIpAddress(txtFromHostIp.Text))
             {
-                _mainStatus.ComponentStatus.isFromHostValid = false; 
+                _mainStatus.ComponentStatus.isFromHostValid = false;
                 txtFromHostIp.ForeColor = Color.Red;
                 AddToInfo("FromHostIpNotOk");
             }
@@ -104,11 +107,7 @@ namespace Knocker
 
         private void txtToHostIp_TextChanged(object sender, EventArgs e)
         {
-            var hostIp = txtToHostIp.Text;
-
-            bool res = _regexChecker.CheckIpAddress(hostIp);
-
-            if (!res)
+            if (!_regexChecker.CheckIpAddress(txtToHostIp.Text))
             {
                 _mainStatus.ComponentStatus.isToHostValid = false;
                 txtToHostIp.ForeColor = Color.Red;
@@ -122,7 +121,18 @@ namespace Knocker
             }
         }
 
-        private bool IsReady() {
+        private void StopCurrentTask()
+        {
+            //Stopping scan
+            _tokenSource.Cancel();
+            _mainStatus.IsRunning = false;
+            _mainTask = null;
+            btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_start.png");
+            lblStatusIndicator.Text = GetFromResource("Stopped");
+        }
+
+        private bool IsReady()
+        {
 
             var stat = _mainStatus.ComponentStatus;
 
@@ -140,11 +150,8 @@ namespace Knocker
 
         private void txtFromPort_TextChanged(object sender, EventArgs e)
         {
-            var port = txtFromPort.Text;
 
-            bool res = _regexChecker.CheckPortValue(port);
-
-            if (!res)
+            if (!_regexChecker.CheckPortValue(txtFromPort.Text))
             {
                 _mainStatus.ComponentStatus.isFromPortValid = false;
                 txtFromPort.ForeColor = Color.Red;
@@ -160,11 +167,7 @@ namespace Knocker
 
         private void txtToPort_TextChanged(object sender, EventArgs e)
         {
-            var port = txtToPort.Text;
-
-            bool res = _regexChecker.CheckPortValue(port);
-
-            if (!res)
+            if (!_regexChecker.CheckPortValue(txtToPort.Text))
             {
                 _mainStatus.ComponentStatus.isToPortValid = false;
                 txtToPort.ForeColor = Color.Red;
@@ -185,12 +188,25 @@ namespace Knocker
             return !String.IsNullOrEmpty(res) ? res + Environment.NewLine : "" + Environment.NewLine;
         }
 
-        private void AddToInfo(string key) {
+        private void AddToInfo(string key)
+        {
 
             var text = GetFromResource(key);
 
-            if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text))
+            if (infoMessageDisplayer.InvokeRequired)
+            {
+
+                infoMessageDisplayer.BeginInvoke(new Action(() =>
+                {
+                    if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text)) { }
+                    infoMessageDisplayer.Text += text;
+                }));
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text)) { }
                 infoMessageDisplayer.Text += text;
+            }
         }
         private void DeleteFromInfo(string key)
         {
@@ -200,6 +216,98 @@ namespace Knocker
             {
                 infoMessageDisplayer.Text = infoMessageDisplayer.Text.Replace(res, String.Empty);
             }
+        }
+
+        public void OnListen(string type, object data)
+        {
+            if (type == typeof(ThreadStatusDto).ToString())
+            {
+                var convertedObject = (ThreadStatusDto)data;
+
+                if (openPortsDataGrid.InvokeRequired)
+                {
+
+                    openPortsDataGrid.BeginInvoke(new Action(() =>
+                    {
+                        _gridBindingSource.Add(convertedObject);
+
+                        openPortsDataGrid.Refresh();
+                    }));
+                }
+                else
+                {
+                    _gridBindingSource.Add(convertedObject);
+
+                    openPortsDataGrid.Refresh();
+                }
+            }
+            else if (type == typeof(MainStatusDto).ToString())
+            {
+                var convertedObject = (MainStatusDto)data;
+
+                if (lblRunningThreadsIndicator.InvokeRequired)
+                {
+                    lblRunningThreadsIndicator.BeginInvoke(new Action(() =>
+                    {
+                        lblRunningThreadsIndicator.Text = convertedObject.RunningThreadCount.ToString();
+                    }));
+                }
+                else
+                {
+                    lblRunningThreadsIndicator.Text = convertedObject.RunningThreadCount.ToString();
+                }
+
+                if (lblStatusIndicator.InvokeRequired)
+                {
+                    lblStatusIndicator.BeginInvoke(new Action(() =>
+                    {
+                        lblStatusIndicator.Text = convertedObject.IsRunning ? GetFromResource("Running") : GetFromResource("Stopped");
+                    }));
+                }
+                else
+                {
+                    lblStatusIndicator.Text = convertedObject.IsRunning ? GetFromResource("Running") : GetFromResource("Stopped");
+                }
+
+                if (convertedObject.IsCompleted)
+                    ScanCompleted();
+
+            }
+
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Broadcaster().RemoveListener(this);
+        }
+
+        private void ScanCompleted()
+        {
+            AddToInfo("Completed");
+
+            _mainStatus.IsRunning = false;
+
+            if (btnStartScan.InvokeRequired)
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_start.png");
+                }));
+            }
+            else
+            {
+                btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_start.png");
+            }
+        }
+
+        private void trcLimitation_ValueChanged(object sender, EventArgs e)
+        {
+            lblLimitationValue.Text = trcLimitation.Value.ToString();
+
+            limitation = trcLimitation.Value;
+
+            if (_mainTask != null)
+                StopCurrentTask();
         }
     }
 }

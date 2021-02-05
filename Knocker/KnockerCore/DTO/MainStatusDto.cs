@@ -8,6 +8,10 @@ namespace KnockerCore.DTO
     {
         public bool IsRunning { get; set; } = false;
 
+        public bool IsCompleted { get; set; } = false;
+
         public ComponentStatusDto ComponentStatus { get; set; } = new ComponentStatusDto();
+
+        public int RunningThreadCount { get; set; }
     }
 }

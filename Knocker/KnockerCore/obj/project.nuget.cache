@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "v1OigrL6MqDA06M7eCxdfyaJrhVGJhemxeCJe2PypXyVcXGzGYA7LXcxmWq8czmNJwSM+z0ywthNH6+wpmmclw==",
+  "dgSpecHash": "u7PWtJLckVATVBIvEpICD5KikJUWLHVJNOgmENVgxwHYK0R40GOa5WkTugfRACTx2ruLpD7aSkl30BXkd+wysQ==",
   "success": true,
-  "projectFilePath": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gorke\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+  ],
   "logs": []
 }

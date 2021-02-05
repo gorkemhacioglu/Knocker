@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KnockerCore.DTO;
+using KnockerCore.Helper;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +9,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using static KnockerCore.Helper.Factory;
 
 namespace KnockerCore
 {
@@ -16,39 +19,67 @@ namespace KnockerCore
 
         ConcurrentBag<Thread> _runningThreads = new ConcurrentBag<Thread>();
 
-        public bool StartScanning(string hostStart, string hostStop, int portStart, int portStop)
+        CancellationToken mainCancellationToken;
+
+        public void StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limitation, CancellationToken token)
         {
             try
             {
+                mainCancellationToken = token;
                 _addresses.Clear();
+                _runningThreads.Clear();
+                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = true, RunningThreadCount = _runningThreads.Count() });
 
-                //Task.Run(() =>
-                //{
-                var startArr = hostStart.Split('.').Select(Byte.Parse).ToArray();
-                var endArr = hostStop.Split('.').Select(Byte.Parse).ToArray();
-
-                var start = BitConverter.ToInt32(new byte[] { startArr[3], startArr[2], startArr[1], startArr[0] }, 0);
-                var end = BitConverter.ToInt32(new byte[] { endArr[3], endArr[2], endArr[1], endArr[0] }, 0);
-
-                for (int i = start; i <= end; i++)
+                Task.Run(() =>
                 {
-                    byte[] bytes = BitConverter.GetBytes(i);
-                    for (int j = portStart; j <= portStop; j++)
+                    var startArr = hostStart.Split('.').Select(Byte.Parse).ToArray();
+                    var endArr = hostStop.Split('.').Select(Byte.Parse).ToArray();
+
+                    var start = BitConverter.ToInt32(new byte[] { startArr[3], startArr[2], startArr[1], startArr[0] }, 0);
+                    var end = BitConverter.ToInt32(new byte[] { endArr[3], endArr[2], endArr[1], endArr[0] }, 0);
+
+                    for (int i = start; i <= end; i++)
                     {
-                        _addresses.Add(Tuple.Create(new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] }), j));
+                        if (token.IsCancellationRequested)
+                            break;
+                        Debug.WriteLine("hala hesaplıyo");
+                        byte[] bytes = BitConverter.GetBytes(i);
+                        for (int j = portStart; j <= portStop; j++)
+                        {
+                            _addresses.Add(Tuple.Create(new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] }), j));
+                        }
                     }
-                }
-                //});
+                }, token);
+
+                Thread.Sleep(1000);
+
+                Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = true, RunningThreadCount = _runningThreads.Count() });
+                        Thread.Sleep(100);
+
+                        if (token.IsCancellationRequested)
+                            break;
+                    }
+                }, token);
 
                 while (true)
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        token.ThrowIfCancellationRequested();
+                    }
+
                     if (_addresses.IsEmpty && _runningThreads.IsEmpty)
                         break;
-                    else if (!_addresses.IsEmpty && _runningThreads.Count < 500)
+                    else if (!_addresses.IsEmpty && _runningThreads.Count < limitation)
                     {
                         Thread thr = new Thread(() => StartTakingFromBag());
-                        _runningThreads.Add(thr);
+                        thr.SetApartmentState(ApartmentState.MTA);
                         thr.Start();
+                        _runningThreads.Add(thr);
                     }
 
                     Thread temp;
@@ -61,28 +92,28 @@ namespace KnockerCore
                     }
                 }
 
-                return true;
+                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = _runningThreads.Count(), IsCompleted = true });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw;
+                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = 0, IsCompleted = false });
             }
-
         }
 
         void StartTakingFromBag()
         {
-            for (int i = 0; i <= 5; i++)
+            //for (int i = 0; i <= 5; i++)
+            //{
+
+            Tuple<IPAddress, int> item;
+            var a = _addresses.TryTake(out item);
+            if (!a)
+                return;
+            else
             {
-                Tuple<IPAddress, int> item;
-                var a = _addresses.TryTake(out item);
-                if (!a)
-                    return;
-                else
-                {
-                    IsPortOpen(item.Item1.ToString(), item.Item2);
-                }
+                IsPortOpen(item.Item1.ToString(), item.Item2);
             }
+            //}
         }
 
         void IsPortOpen(string ipaddress, int port)
@@ -92,15 +123,14 @@ namespace KnockerCore
                 try
                 {
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
-                    var success = result.AsyncWaitHandle.WaitOne(100);
+                    var success = result.AsyncWaitHandle.WaitOne(200);
                     tcpClient.EndConnect(result);
-                    Debug.WriteLine(success.ToString() + ipaddress + ":" + port);
-                    //return success;
+                    Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
+                    thr.Start();
                 }
                 catch (Exception)
                 {
                     Debug.WriteLine("Port closed " + ipaddress + ":" + port);
-                    //return false;
                 }
             }
         }

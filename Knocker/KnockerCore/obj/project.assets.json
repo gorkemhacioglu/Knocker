@@ -8,23 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Görkem\\.nuget\\packages\\": {},
+    "C:\\Users\\gorke\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj",
+      "projectUniqueName": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
       "projectName": "KnockerCore",
-      "projectPath": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj",
-      "packagesPath": "C:\\Users\\Görkem\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\Knocker\\KnockerCore\\obj\\",
+      "projectPath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
+      "packagesPath": "C:\\Users\\gorke\\.nuget\\packages\\",
+      "outputPath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Görkem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gorke\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -37,6 +37,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -48,6 +49,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -58,12 +60,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -15,3 +15,12 @@ C:\Source\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.dll
 C:\Source\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.pdb
 C:\Source\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.csprojAssemblyReference.cache
 C:\Source\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.csproj.CoreCompileInputs.cache
+C:\Source\Knocker\Knocker\KnockerCore\bin\Debug\netcoreapp3.1\KnockerCore.deps.json
+C:\Source\Knocker\Knocker\KnockerCore\bin\Debug\netcoreapp3.1\KnockerCore.dll
+C:\Source\Knocker\Knocker\KnockerCore\bin\Debug\netcoreapp3.1\KnockerCore.pdb
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.AssemblyInfoInputs.cache
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.AssemblyInfo.cs
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.csproj.CoreCompileInputs.cache
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.dll
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.pdb
+C:\Source\Knocker\Knocker\KnockerCore\obj\Debug\netcoreapp3.1\KnockerCore.csprojAssemblyReference.cache

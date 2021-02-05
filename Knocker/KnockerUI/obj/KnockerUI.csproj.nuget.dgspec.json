@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Source\\Knocker\\KnockerUI\\KnockerUI.csproj": {}
+    "C:\\Source\\Knocker\\Knocker\\KnockerUI\\KnockerUI.csproj": {}
   },
   "projects": {
-    "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj": {
+    "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj",
+        "projectUniqueName": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
         "projectName": "KnockerCore",
-        "projectPath": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj",
-        "packagesPath": "C:\\Users\\Görkem\\.nuget\\packages\\",
-        "outputPath": "C:\\Source\\Knocker\\KnockerCore\\obj\\",
+        "projectPath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
+        "packagesPath": "C:\\Users\\gorke\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Görkem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gorke\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -30,6 +30,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -41,6 +42,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -51,29 +53,35 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Source\\Knocker\\KnockerUI\\KnockerUI.csproj": {
+    "C:\\Source\\Knocker\\Knocker\\KnockerUI\\KnockerUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Source\\Knocker\\KnockerUI\\KnockerUI.csproj",
+        "projectUniqueName": "C:\\Source\\Knocker\\Knocker\\KnockerUI\\KnockerUI.csproj",
         "projectName": "KnockerUI",
-        "projectPath": "C:\\Source\\Knocker\\KnockerUI\\KnockerUI.csproj",
-        "packagesPath": "C:\\Users\\Görkem\\.nuget\\packages\\",
-        "outputPath": "C:\\Source\\Knocker\\KnockerUI\\obj\\",
+        "projectPath": "C:\\Source\\Knocker\\Knocker\\KnockerUI\\KnockerUI.csproj",
+        "packagesPath": "C:\\Users\\gorke\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\Knocker\\Knocker\\KnockerUI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Görkem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gorke\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -86,9 +94,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj": {
-                "projectPath": "C:\\Source\\Knocker\\KnockerCore\\KnockerCore.csproj"
+              "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj": {
+                "projectPath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj"
               }
             }
           }
@@ -101,6 +110,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -111,6 +121,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -119,7 +139,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
