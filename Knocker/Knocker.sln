@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnockerCore", "KnockerCore\KnockerCore.csproj", "{E3923AC6-733B-4A85-AFCF-D8B26359DB80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnockerUI", "KnockerUI\KnockerUI.csproj", "{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnockerUI", "KnockerUI\KnockerUI.csproj", "{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnockerCoreTests", "KnockerCoreTests\KnockerCoreTests.csproj", "{43ADC5FE-B62B-4615-A1BB-B8E5D5F4F658}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnockerUITests", "KnockerUITests\KnockerUITests.csproj", "{21C94F55-FA5E-4F53-851C-463315B6AB77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16E7CCA6-6328-46B8-BAA7-0840481C4DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43ADC5FE-B62B-4615-A1BB-B8E5D5F4F658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43ADC5FE-B62B-4615-A1BB-B8E5D5F4F658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43ADC5FE-B62B-4615-A1BB-B8E5D5F4F658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43ADC5FE-B62B-4615-A1BB-B8E5D5F4F658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21C94F55-FA5E-4F53-851C-463315B6AB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21C94F55-FA5E-4F53-851C-463315B6AB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21C94F55-FA5E-4F53-851C-463315B6AB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21C94F55-FA5E-4F53-851C-463315B6AB77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

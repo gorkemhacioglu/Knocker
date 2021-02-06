@@ -30,7 +30,7 @@ namespace KnockerCore
 
         public volatile int scannedAddresses;
 
-        public void StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limit, CancellationToken token)
+        public bool StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limit, CancellationToken token)
         {
             try
             {
@@ -106,19 +106,21 @@ namespace KnockerCore
                 }
 
                 Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = _runningThreads.Count(), IsCompleted = true, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
+                return true;
             }
             catch (Exception ex)
             {
                 _log.Error(ex);
                 Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = 0, IsCompleted = false, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
+                return false;
             }
         }
 
-        public void UpdateLimitation(int limit) 
+        public void UpdateLimitation(int limit)
         {
             limitation = limit;
         }
-        void StartTakingFromBag()
+        public void StartTakingFromBag()
         {
             Tuple<IPAddress, int> item;
             var a = _addresses.TryTake(out item);
@@ -131,23 +133,24 @@ namespace KnockerCore
 
         }
 
-        void IsPortOpen(string ipaddress, int port)
+        public bool IsPortOpen(string ipaddress, int port)
         {
             using (var tcpClient = new TcpClient())
             {
                 try
                 {
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
-                    var success = result.AsyncWaitHandle.WaitOne(200);
                     tcpClient.EndConnect(result);
                     Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
                     thr.Start();
                 }
                 catch (Exception)
                 {
-                    //ignored
+                    Interlocked.Increment(ref scannedAddresses);
+                    return false;
                 }
                 Interlocked.Increment(ref scannedAddresses);
+                return true;
             }
         }
     }

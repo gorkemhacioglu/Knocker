@@ -125,7 +125,7 @@ namespace Knocker
             }
         }
 
-        private void txtFromHostIp_TextChanged(object sender, EventArgs e)
+        public void txtFromHostIp_TextChanged(object sender, EventArgs e)
         {
             if (!_regexChecker.CheckIpAddress(txtFromHostIp.Text))
             {
@@ -216,14 +216,14 @@ namespace Knocker
             }
         }
 
-        private string GetFromResource(string key)
+        public string GetFromResource(string key)
         {
             var res = _resourceManager.GetString(key);
 
             return !String.IsNullOrEmpty(res) ? res + Environment.NewLine : "" + Environment.NewLine;
         }
 
-        private void AddToInfo(string key, bool? dissapear)
+        public void AddToInfo(string key, bool? dissapear)
         {
 
             var text = GetFromResource(key);
@@ -254,7 +254,7 @@ namespace Knocker
                 }
             }
         }
-        private void DeleteFromInfo(string key)
+        public void DeleteFromInfo(string key)
         {
             var res = GetFromResource(key);
 
@@ -323,15 +323,16 @@ namespace Knocker
                     lblStatusIndicator.Text = convertedObject.IsRunning ? GetFromResource("Running") : GetFromResource("Stopped");
                 }
 
+                if (convertedObject.ScannedAddresses > convertedObject.TotalCalculatedAddresses)
+                    convertedObject.ScannedAddresses = convertedObject.TotalCalculatedAddresses;
+
                 scannedAddresses = convertedObject.ScannedAddresses;
 
                 totalCalculatedAddresses = convertedObject.TotalCalculatedAddresses;
 
                 if (convertedObject.IsCompleted)
                     ScanCompleted();
-
             }
-
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -378,7 +379,7 @@ namespace Knocker
             }
         }
 
-        private void btnExportToExcel_Click(object sender, EventArgs e)
+        public void btnExportToExcel_Click(object sender, EventArgs e)
         {
             try
             {
