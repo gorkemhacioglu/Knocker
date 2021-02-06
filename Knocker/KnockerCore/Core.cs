@@ -56,7 +56,7 @@ namespace KnockerCore
                         for (int j = portStart; j <= portStop; j++)
                         {
                             _addresses.Add(Tuple.Create(new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] }), j));
-                            totalCalculatedAddresses++;
+                            Interlocked.Increment(ref totalCalculatedAddresses);
                         }
                     }
                 }, token);
@@ -135,13 +135,13 @@ namespace KnockerCore
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
                     var success = result.AsyncWaitHandle.WaitOne(200);
                     tcpClient.EndConnect(result);
-                    scannedAddresses++;
+                    Interlocked.Increment(ref scannedAddresses);
                     Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
                     thr.Start();
                 }
                 catch (Exception)
                 {
-                    scannedAddresses++;
+                    Interlocked.Increment(ref scannedAddresses);
                 }
             }
         }
