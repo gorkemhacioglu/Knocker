@@ -142,6 +142,15 @@ namespace KnockerUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Limit set, it is increasing..
+        /// </summary>
+        internal static string ThreadLimitIncreasing {
+            get {
+                return ResourceManager.GetString("ThreadLimitIncreasing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ending ip value is not okay. Please review it..
         /// </summary>
         internal static string ToHostIpNotOk {
@@ -156,6 +165,15 @@ namespace KnockerUI {
         internal static string ToPortValueNotOk {
             get {
                 return ResourceManager.GetString("ToPortValueNotOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limit set. Waiting current threads to do their jobs and then running thread count will decrease..
+        /// </summary>
+        internal static string WaitingThreadsToDecrease {
+            get {
+                return ResourceManager.GetString("WaitingThreadsToDecrease", resourceCulture);
             }
         }
     }

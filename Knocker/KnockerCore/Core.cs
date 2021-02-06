@@ -21,10 +21,13 @@ namespace KnockerCore
 
         CancellationToken mainCancellationToken;
 
-        public void StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limitation, CancellationToken token)
+        public volatile int limitation;
+
+        public void StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limit, CancellationToken token)
         {
             try
             {
+                limitation = limit;
                 mainCancellationToken = token;
                 _addresses.Clear();
                 _runningThreads.Clear();
@@ -100,6 +103,10 @@ namespace KnockerCore
             }
         }
 
+        public void UpdateLimitation(int limit) 
+        {
+            limitation = limit;
+        }
         void StartTakingFromBag()
         {
             //for (int i = 0; i <= 5; i++)

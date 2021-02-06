@@ -95,7 +95,7 @@ namespace Knocker
             {
                 _mainStatus.ComponentStatus.isFromHostValid = false;
                 txtFromHostIp.ForeColor = Color.Red;
-                AddToInfo("FromHostIpNotOk");
+                AddToInfo("FromHostIpNotOk", false);
             }
             else
             {
@@ -111,7 +111,7 @@ namespace Knocker
             {
                 _mainStatus.ComponentStatus.isToHostValid = false;
                 txtToHostIp.ForeColor = Color.Red;
-                AddToInfo("ToHostIpNotOk");
+                AddToInfo("ToHostIpNotOk", false);
             }
             else
             {
@@ -143,7 +143,7 @@ namespace Knocker
             }
             else
             {
-                AddToInfo("InputAreNotReady");
+                AddToInfo("InputAreNotReady", false);
                 return false;
             }
         }
@@ -155,7 +155,7 @@ namespace Knocker
             {
                 _mainStatus.ComponentStatus.isFromPortValid = false;
                 txtFromPort.ForeColor = Color.Red;
-                AddToInfo("FromPortValueNotOk");
+                AddToInfo("FromPortValueNotOk", false);
             }
             else
             {
@@ -171,7 +171,7 @@ namespace Knocker
             {
                 _mainStatus.ComponentStatus.isToPortValid = false;
                 txtToPort.ForeColor = Color.Red;
-                AddToInfo("ToPortValueNotOk");
+                AddToInfo("ToPortValueNotOk", false);
             }
             else
             {
@@ -188,24 +188,35 @@ namespace Knocker
             return !String.IsNullOrEmpty(res) ? res + Environment.NewLine : "" + Environment.NewLine;
         }
 
-        private void AddToInfo(string key)
+        private void AddToInfo(string key, bool? dissapear)
         {
 
             var text = GetFromResource(key);
 
             if (infoMessageDisplayer.InvokeRequired)
             {
-
                 infoMessageDisplayer.BeginInvoke(new Action(() =>
                 {
-                    if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text)) { }
-                    infoMessageDisplayer.Text += text;
+                    if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text))
+                        infoMessageDisplayer.Text += text;
+
+                    if (Convert.ToBoolean(dissapear))
+                    {
+                        Thread thr = new Thread(() => { Thread.Sleep(15000); DeleteFromInfo(key); });
+                        thr.Start();
+                    }
                 }));
             }
             else
             {
-                if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text)) { }
-                infoMessageDisplayer.Text += text;
+                if (!String.IsNullOrEmpty(text) && !infoMessageDisplayer.Text.Contains(text))
+                    infoMessageDisplayer.Text += text;
+
+                if (Convert.ToBoolean(dissapear))
+                {
+                    Thread thr = new Thread(() => { Thread.Sleep(15000); DeleteFromInfo(key); });
+                    thr.Start();
+                }
             }
         }
         private void DeleteFromInfo(string key)
@@ -214,7 +225,16 @@ namespace Knocker
 
             if (!String.IsNullOrEmpty(res))
             {
-                infoMessageDisplayer.Text = infoMessageDisplayer.Text.Replace(res, String.Empty);
+                if (infoMessageDisplayer.InvokeRequired)
+                {
+                    infoMessageDisplayer.BeginInvoke(new Action(() =>
+                    {
+                        infoMessageDisplayer.Text = infoMessageDisplayer.Text.Replace(res, String.Empty);
+                    }));
+                }
+                else
+                    infoMessageDisplayer.Text = infoMessageDisplayer.Text.Replace(res, String.Empty);
+
             }
         }
 
@@ -283,7 +303,7 @@ namespace Knocker
 
         private void ScanCompleted()
         {
-            AddToInfo("Completed");
+            AddToInfo("Completed", false);
 
             _mainStatus.IsRunning = false;
 
@@ -305,9 +325,17 @@ namespace Knocker
             lblLimitationValue.Text = trcLimitation.Value.ToString();
 
             limitation = trcLimitation.Value;
+            var previousLimit = core.limitation;
 
             if (_mainTask != null)
-                StopCurrentTask();
+            {
+                core.UpdateLimitation(limitation);
+
+                if (previousLimit > limitation)
+                    AddToInfo("WaitingThreadsToDecrease", true);
+                else
+                    AddToInfo("ThreadLimitIncreasing", true);
+            }
         }
     }
 }

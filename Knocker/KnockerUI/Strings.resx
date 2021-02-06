@@ -144,10 +144,16 @@
   <data name="Stopped" xml:space="preserve">
     <value>Stopped</value>
   </data>
+  <data name="ThreadLimitIncreasing" xml:space="preserve">
+    <value>Limit set, it is increasing.</value>
+  </data>
   <data name="ToHostIpNotOk" xml:space="preserve">
     <value>Ending ip value is not okay. Please review it.</value>
   </data>
   <data name="ToPortValueNotOk" xml:space="preserve">
     <value>Ending port value is not okay. Please review it.</value>
+  </data>
+  <data name="WaitingThreadsToDecrease" xml:space="preserve">
+    <value>Limit set. Waiting current threads to do their jobs and then running thread count will decrease.</value>
   </data>
 </root>
