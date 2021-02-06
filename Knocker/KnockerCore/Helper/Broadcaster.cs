@@ -1,5 +1,6 @@
 ﻿using KnockerCore.DTO.Interface;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace KnockerCore.Helper
 {
     public class Broadcaster
     {
-        private readonly Collection<IMessageListener> _listeners = new Collection<IMessageListener>();
+        private readonly ConcurrentQueue<IMessageListener> _listeners = new ConcurrentQueue<IMessageListener>();
 
         public void Broadcast(string type, object data)
         {
@@ -21,16 +22,21 @@ namespace KnockerCore.Helper
 
         public void AddListener(IMessageListener listener)
         {
-            _listeners.Add(listener);
+            _listeners.Enqueue(listener);
         }
 
         public void RemoveListener(IMessageListener listener)
         {
-            for (int index = 0; index < _listeners.Count; index++)
+            IMessageListener item;
+            var a = _listeners.TryDequeue(out item);
+
+            if (!a)
+                return;
+            else
             {
-                if (_listeners[index].Equals(listener))
+                if (item != listener)
                 {
-                    _listeners.Remove(_listeners[index]);
+                    _listeners.Enqueue(item);
                 }
             }
         }

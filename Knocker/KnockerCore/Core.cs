@@ -17,16 +17,22 @@ namespace KnockerCore
     {
         ConcurrentBag<Tuple<IPAddress, int>> _addresses = new ConcurrentBag<Tuple<IPAddress, int>>();
 
-        ConcurrentBag<Thread> _runningThreads = new ConcurrentBag<Thread>();
+        ConcurrentQueue<Thread> _runningThreads = new ConcurrentQueue<Thread>();
 
         CancellationToken mainCancellationToken;
 
         public volatile int limitation;
 
+        public volatile int totalCalculatedAddresses;
+
+        public volatile int scannedAddresses;
+
         public void StartScanning(string hostStart, string hostStop, int portStart, int portStop, int limit, CancellationToken token)
         {
             try
             {
+                totalCalculatedAddresses = 0;
+                scannedAddresses = 0;
                 limitation = limit;
                 mainCancellationToken = token;
                 _addresses.Clear();
@@ -45,11 +51,12 @@ namespace KnockerCore
                     {
                         if (token.IsCancellationRequested)
                             break;
-                        Debug.WriteLine("hala hesaplıyo");
+
                         byte[] bytes = BitConverter.GetBytes(i);
                         for (int j = portStart; j <= portStop; j++)
                         {
                             _addresses.Add(Tuple.Create(new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] }), j));
+                            totalCalculatedAddresses++;
                         }
                     }
                 }, token);
@@ -60,9 +67,8 @@ namespace KnockerCore
                 {
                     while (true)
                     {
-                        Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = true, RunningThreadCount = _runningThreads.Count() });
-                        Thread.Sleep(100);
-
+                        Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = true, RunningThreadCount = _runningThreads.Count(), TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
+                        Thread.Sleep(10);
                         if (token.IsCancellationRequested)
                             break;
                     }
@@ -82,24 +88,24 @@ namespace KnockerCore
                         Thread thr = new Thread(() => StartTakingFromBag());
                         thr.SetApartmentState(ApartmentState.MTA);
                         thr.Start();
-                        _runningThreads.Add(thr);
+                        _runningThreads.Enqueue(thr);
                     }
 
                     Thread temp;
-                    bool gotIt = _runningThreads.TryTake(out temp);
+                    bool gotIt = _runningThreads.TryDequeue(out temp);
 
                     if (gotIt)
                     {
                         if (temp.IsAlive)
-                            _runningThreads.Add(temp);
+                            _runningThreads.Enqueue(temp);
                     }
                 }
 
-                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = _runningThreads.Count(), IsCompleted = true });
+                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = _runningThreads.Count(), IsCompleted = true, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
             }
             catch (Exception)
             {
-                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = 0, IsCompleted = false });
+                Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = 0, IsCompleted = false, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
             }
         }
 
@@ -109,9 +115,6 @@ namespace KnockerCore
         }
         void StartTakingFromBag()
         {
-            //for (int i = 0; i <= 5; i++)
-            //{
-
             Tuple<IPAddress, int> item;
             var a = _addresses.TryTake(out item);
             if (!a)
@@ -120,7 +123,7 @@ namespace KnockerCore
             {
                 IsPortOpen(item.Item1.ToString(), item.Item2);
             }
-            //}
+
         }
 
         void IsPortOpen(string ipaddress, int port)
@@ -132,12 +135,13 @@ namespace KnockerCore
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
                     var success = result.AsyncWaitHandle.WaitOne(200);
                     tcpClient.EndConnect(result);
+                    scannedAddresses++;
                     Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
                     thr.Start();
                 }
                 catch (Exception)
                 {
-                    Debug.WriteLine("Port closed " + ipaddress + ":" + port);
+                    scannedAddresses++;
                 }
             }
         }

@@ -13,5 +13,9 @@ namespace KnockerCore.DTO
         public ComponentStatusDto ComponentStatus { get; set; } = new ComponentStatusDto();
 
         public int RunningThreadCount { get; set; }
+
+        public int TotalCalculatedAddresses { get; set; }
+
+        public int ScannedAddresses { get; set; }
     }
 }

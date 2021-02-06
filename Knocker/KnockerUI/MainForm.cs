@@ -3,6 +3,7 @@ using KnockerCore.DTO;
 using KnockerCore.DTO.Interface;
 using KnockerCore.Helper;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,15 +39,38 @@ namespace Knocker
 
         private int limitation = 500;
 
+        public volatile int totalCalculatedAddresses;
+
+        public volatile int scannedAddresses;
+
         public MainForm()
         {
             InitializeComponent();
 
             openPortsDataGrid.DataSource = _gridBindingSource;
 
-            Debug.WriteLine("çalıştı");
-
             Broadcaster().AddListener(this);
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (progressBar.InvokeRequired)
+                    {
+                        progressBar.BeginInvoke(new Action(() =>
+                        {
+                            progressBar.Maximum = totalCalculatedAddresses;
+                            progressBar.Value = scannedAddresses;
+                        }));
+                    }
+                    else
+                    {
+                        progressBar.Maximum = totalCalculatedAddresses;
+                        progressBar.Value = scannedAddresses;
+                    }
+                    Thread.Sleep(1000);
+                }
+            });
         }
 
         private void btnStartScan_Click(object sender, EventArgs e)
@@ -244,22 +268,21 @@ namespace Knocker
             {
                 var convertedObject = (ThreadStatusDto)data;
 
-                if (openPortsDataGrid.InvokeRequired)
+                Thread thr = new Thread(() => 
                 {
-
-                    openPortsDataGrid.BeginInvoke(new Action(() =>
+                    if (openPortsDataGrid.InvokeRequired)
+                    {
+                        openPortsDataGrid.BeginInvoke(new Action(() =>
+                        {
+                            _gridBindingSource.Add(convertedObject);
+                        }));
+                    }
+                    else
                     {
                         _gridBindingSource.Add(convertedObject);
-
-                        openPortsDataGrid.Refresh();
-                    }));
-                }
-                else
-                {
-                    _gridBindingSource.Add(convertedObject);
-
-                    openPortsDataGrid.Refresh();
-                }
+                    }
+                });
+                thr.Start();  
             }
             else if (type == typeof(MainStatusDto).ToString())
             {
@@ -288,6 +311,10 @@ namespace Knocker
                 {
                     lblStatusIndicator.Text = convertedObject.IsRunning ? GetFromResource("Running") : GetFromResource("Stopped");
                 }
+
+                scannedAddresses = convertedObject.ScannedAddresses;
+
+                totalCalculatedAddresses = convertedObject.TotalCalculatedAddresses;
 
                 if (convertedObject.IsCompleted)
                     ScanCompleted();
