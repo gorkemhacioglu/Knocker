@@ -135,14 +135,13 @@ namespace KnockerCore
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
                     var success = result.AsyncWaitHandle.WaitOne(200);
                     tcpClient.EndConnect(result);
-                    Interlocked.Increment(ref scannedAddresses);
                     Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
                     thr.Start();
                 }
                 catch (Exception)
                 {
-                    Interlocked.Increment(ref scannedAddresses);
                 }
+                Interlocked.Increment(ref scannedAddresses);
             }
         }
     }

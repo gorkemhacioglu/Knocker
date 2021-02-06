@@ -111,6 +111,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[22.1.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

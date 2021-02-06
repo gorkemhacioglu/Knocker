@@ -56,6 +56,7 @@
             this.trcLimitation = new System.Windows.Forms.TrackBar();
             this.openPortsDataGrid = new System.Windows.Forms.DataGridView();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.btnExportToExcel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnStartScan)).BeginInit();
@@ -71,7 +72,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.53815F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.46185F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 249F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 0);
@@ -79,6 +80,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.openPortsDataGrid, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.progressBar, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnExportToExcel, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -100,13 +102,13 @@
             this.tableLayoutPanel2.Controls.Add(this.lblRunningThreads, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.lblRunningThreadsIndicator, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(643, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(636, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(244, 139);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(251, 139);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // btnStartScan
@@ -116,7 +118,7 @@
             this.btnStartScan.Image = ((System.Drawing.Image)(resources.GetObject("btnStartScan.Image")));
             this.btnStartScan.Location = new System.Drawing.Point(3, 88);
             this.btnStartScan.Name = "btnStartScan";
-            this.btnStartScan.Size = new System.Drawing.Size(156, 48);
+            this.btnStartScan.Size = new System.Drawing.Size(163, 48);
             this.btnStartScan.TabIndex = 4;
             this.btnStartScan.TabStop = false;
             this.btnStartScan.Click += new System.EventHandler(this.btnStartScan_Click);
@@ -127,7 +129,7 @@
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStatus.Location = new System.Drawing.Point(3, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(156, 40);
+            this.lblStatus.Size = new System.Drawing.Size(163, 40);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Status:";
             // 
@@ -135,7 +137,7 @@
             // 
             this.lblStatusIndicator.AutoSize = true;
             this.lblStatusIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblStatusIndicator.Location = new System.Drawing.Point(165, 0);
+            this.lblStatusIndicator.Location = new System.Drawing.Point(172, 0);
             this.lblStatusIndicator.Name = "lblStatusIndicator";
             this.lblStatusIndicator.Size = new System.Drawing.Size(76, 40);
             this.lblStatusIndicator.TabIndex = 1;
@@ -155,7 +157,7 @@
             // 
             this.lblRunningThreadsIndicator.AutoSize = true;
             this.lblRunningThreadsIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRunningThreadsIndicator.Location = new System.Drawing.Point(165, 40);
+            this.lblRunningThreadsIndicator.Location = new System.Drawing.Point(172, 40);
             this.lblRunningThreadsIndicator.Name = "lblRunningThreadsIndicator";
             this.lblRunningThreadsIndicator.Size = new System.Drawing.Size(76, 22);
             this.lblRunningThreadsIndicator.TabIndex = 3;
@@ -187,7 +189,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(215, 139);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(212, 139);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // lblStartHost
@@ -196,7 +198,7 @@
             this.lblStartHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStartHost.Location = new System.Drawing.Point(3, 13);
             this.lblStartHost.Name = "lblStartHost";
-            this.lblStartHost.Size = new System.Drawing.Size(107, 25);
+            this.lblStartHost.Size = new System.Drawing.Size(105, 25);
             this.lblStartHost.TabIndex = 0;
             this.lblStartHost.Text = "From:";
             this.lblStartHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -207,7 +209,7 @@
             this.lblHosts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHosts.Location = new System.Drawing.Point(3, 0);
             this.lblHosts.Name = "lblHosts";
-            this.lblHosts.Size = new System.Drawing.Size(107, 13);
+            this.lblHosts.Size = new System.Drawing.Size(105, 13);
             this.lblHosts.TabIndex = 1;
             this.lblHosts.Text = "Host Information IP";
             this.lblHosts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -218,7 +220,7 @@
             this.lblEndingHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEndingHost.Location = new System.Drawing.Point(3, 38);
             this.lblEndingHost.Name = "lblEndingHost";
-            this.lblEndingHost.Size = new System.Drawing.Size(107, 27);
+            this.lblEndingHost.Size = new System.Drawing.Size(105, 27);
             this.lblEndingHost.TabIndex = 2;
             this.lblEndingHost.Text = "To:";
             this.lblEndingHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -226,10 +228,10 @@
             // txtFromHostIp
             // 
             this.txtFromHostIp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFromHostIp.Location = new System.Drawing.Point(116, 16);
+            this.txtFromHostIp.Location = new System.Drawing.Point(114, 16);
             this.txtFromHostIp.Name = "txtFromHostIp";
             this.txtFromHostIp.PlaceholderText = "xxx.xxx.xxx.xxx";
-            this.txtFromHostIp.Size = new System.Drawing.Size(96, 23);
+            this.txtFromHostIp.Size = new System.Drawing.Size(95, 23);
             this.txtFromHostIp.TabIndex = 3;
             this.txtFromHostIp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFromHostIp.TextChanged += new System.EventHandler(this.txtFromHostIp_TextChanged);
@@ -237,10 +239,10 @@
             // txtToHostIp
             // 
             this.txtToHostIp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtToHostIp.Location = new System.Drawing.Point(116, 41);
+            this.txtToHostIp.Location = new System.Drawing.Point(114, 41);
             this.txtToHostIp.Name = "txtToHostIp";
             this.txtToHostIp.PlaceholderText = "xxx.xxx.xxx.xxx";
-            this.txtToHostIp.Size = new System.Drawing.Size(96, 23);
+            this.txtToHostIp.Size = new System.Drawing.Size(95, 23);
             this.txtToHostIp.TabIndex = 4;
             this.txtToHostIp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtToHostIp.TextChanged += new System.EventHandler(this.txtToHostIp_TextChanged);
@@ -251,7 +253,7 @@
             this.lblPorts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPorts.Location = new System.Drawing.Point(3, 65);
             this.lblPorts.Name = "lblPorts";
-            this.lblPorts.Size = new System.Drawing.Size(107, 15);
+            this.lblPorts.Size = new System.Drawing.Size(105, 15);
             this.lblPorts.TabIndex = 5;
             this.lblPorts.Text = "Port Information";
             this.lblPorts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -262,7 +264,7 @@
             this.lblFromPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFromPort.Location = new System.Drawing.Point(3, 80);
             this.lblFromPort.Name = "lblFromPort";
-            this.lblFromPort.Size = new System.Drawing.Size(107, 26);
+            this.lblFromPort.Size = new System.Drawing.Size(105, 26);
             this.lblFromPort.TabIndex = 6;
             this.lblFromPort.Text = "From:";
             this.lblFromPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -273,7 +275,7 @@
             this.lblToPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblToPort.Location = new System.Drawing.Point(3, 106);
             this.lblToPort.Name = "lblToPort";
-            this.lblToPort.Size = new System.Drawing.Size(107, 33);
+            this.lblToPort.Size = new System.Drawing.Size(105, 33);
             this.lblToPort.TabIndex = 7;
             this.lblToPort.Text = "To:";
             this.lblToPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -281,10 +283,10 @@
             // txtFromPort
             // 
             this.txtFromPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFromPort.Location = new System.Drawing.Point(116, 83);
+            this.txtFromPort.Location = new System.Drawing.Point(114, 83);
             this.txtFromPort.Name = "txtFromPort";
             this.txtFromPort.PlaceholderText = "1-65535";
-            this.txtFromPort.Size = new System.Drawing.Size(96, 23);
+            this.txtFromPort.Size = new System.Drawing.Size(95, 23);
             this.txtFromPort.TabIndex = 8;
             this.txtFromPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFromPort.TextChanged += new System.EventHandler(this.txtFromPort_TextChanged);
@@ -292,10 +294,10 @@
             // txtToPort
             // 
             this.txtToPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtToPort.Location = new System.Drawing.Point(116, 109);
+            this.txtToPort.Location = new System.Drawing.Point(114, 109);
             this.txtToPort.Name = "txtToPort";
             this.txtToPort.PlaceholderText = "1-65535";
-            this.txtToPort.Size = new System.Drawing.Size(96, 23);
+            this.txtToPort.Size = new System.Drawing.Size(95, 23);
             this.txtToPort.TabIndex = 9;
             this.txtToPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtToPort.TextChanged += new System.EventHandler(this.txtToPort_TextChanged);
@@ -308,12 +310,12 @@
             this.tableLayoutPanel4.Controls.Add(this.lblInfoHeader, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.infoMessageDisplayer, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(224, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(221, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.06837F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.93162F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(413, 139);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(409, 139);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // lblInfoHeader
@@ -322,7 +324,7 @@
             this.lblInfoHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblInfoHeader.Location = new System.Drawing.Point(3, 0);
             this.lblInfoHeader.Name = "lblInfoHeader";
-            this.lblInfoHeader.Size = new System.Drawing.Size(41, 105);
+            this.lblInfoHeader.Size = new System.Drawing.Size(40, 105);
             this.lblInfoHeader.TabIndex = 0;
             this.lblInfoHeader.Text = "Info";
             this.lblInfoHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -330,12 +332,12 @@
             // infoMessageDisplayer
             // 
             this.infoMessageDisplayer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.infoMessageDisplayer.Location = new System.Drawing.Point(50, 3);
+            this.infoMessageDisplayer.Location = new System.Drawing.Point(49, 3);
             this.infoMessageDisplayer.Multiline = true;
             this.infoMessageDisplayer.Name = "infoMessageDisplayer";
             this.infoMessageDisplayer.ReadOnly = true;
             this.infoMessageDisplayer.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.infoMessageDisplayer.Size = new System.Drawing.Size(360, 79);
+            this.infoMessageDisplayer.Size = new System.Drawing.Size(357, 79);
             this.infoMessageDisplayer.TabIndex = 1;
             // 
             // label1
@@ -344,7 +346,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 145);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 56);
+            this.label1.Size = new System.Drawing.Size(212, 56);
             this.label1.TabIndex = 9;
             this.label1.Text = "Limitation:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -356,12 +358,12 @@
             this.tableLayoutPanel5.Controls.Add(this.lblLimitationValue, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.trcLimitation, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(224, 148);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(221, 148);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.92308F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.07692F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(413, 50);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(409, 50);
             this.tableLayoutPanel5.TabIndex = 10;
             // 
             // lblLimitationValue
@@ -370,7 +372,7 @@
             this.lblLimitationValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblLimitationValue.Location = new System.Drawing.Point(3, 0);
             this.lblLimitationValue.Name = "lblLimitationValue";
-            this.lblLimitationValue.Size = new System.Drawing.Size(407, 13);
+            this.lblLimitationValue.Size = new System.Drawing.Size(403, 13);
             this.lblLimitationValue.TabIndex = 0;
             this.lblLimitationValue.Text = "500";
             this.lblLimitationValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -383,7 +385,7 @@
             this.trcLimitation.Maximum = 1000;
             this.trcLimitation.Minimum = 1;
             this.trcLimitation.Name = "trcLimitation";
-            this.trcLimitation.Size = new System.Drawing.Size(407, 31);
+            this.trcLimitation.Size = new System.Drawing.Size(403, 31);
             this.trcLimitation.TabIndex = 1;
             this.trcLimitation.Value = 500;
             this.trcLimitation.ValueChanged += new System.EventHandler(this.trcLimitation_ValueChanged);
@@ -393,19 +395,32 @@
             // 
             this.openPortsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.openPortsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.openPortsDataGrid.Location = new System.Drawing.Point(224, 204);
+            this.openPortsDataGrid.Location = new System.Drawing.Point(221, 204);
             this.openPortsDataGrid.Name = "openPortsDataGrid";
             this.openPortsDataGrid.RowTemplate.Height = 25;
-            this.openPortsDataGrid.Size = new System.Drawing.Size(413, 293);
+            this.openPortsDataGrid.Size = new System.Drawing.Size(409, 293);
             this.openPortsDataGrid.TabIndex = 11;
             // 
             // progressBar
             // 
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar.Location = new System.Drawing.Point(643, 148);
+            this.progressBar.Location = new System.Drawing.Point(636, 148);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(244, 50);
+            this.progressBar.Size = new System.Drawing.Size(251, 50);
             this.progressBar.TabIndex = 12;
+            // 
+            // btnExportToExcel
+            // 
+            this.btnExportToExcel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnExportToExcel.Location = new System.Drawing.Point(636, 467);
+            this.btnExportToExcel.MaximumSize = new System.Drawing.Size(50, 20);
+            this.btnExportToExcel.MinimumSize = new System.Drawing.Size(50, 30);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Size = new System.Drawing.Size(50, 30);
+            this.btnExportToExcel.TabIndex = 13;
+            this.btnExportToExcel.Text = "Export";
+            this.btnExportToExcel.UseVisualStyleBackColor = true;
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
             // 
             // MainForm
             // 
@@ -462,6 +477,7 @@
         private System.Windows.Forms.TrackBar trcLimitation;
         private System.Windows.Forms.PictureBox btnStartScan;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button btnExportToExcel;
     }
 }
 

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ep0sHQpGkPmpJorKQzv5/v9ez5t5KNYKiE0/eBs0klzicEbfXf3l38hKUPKSuHmmfUYuYVroDnm/bDKdpY/2Zg==",
+  "dgSpecHash": "pQnjz9jvEyh5nag7kJI8X+7KzWt1S+wr6vfK90sLyxF9SbGEikR/WPR9M4C20B+L6NYARV3QloRb5fz+L95axA==",
   "success": true,
   "projectFilePath": "C:\\Source\\Knocker\\Knocker\\KnockerUI\\KnockerUI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gorke\\.nuget\\packages\\csvhelper\\22.1.2\\csvhelper.22.1.2.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\gorke\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
     "C:\\Users\\gorke\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
   ],

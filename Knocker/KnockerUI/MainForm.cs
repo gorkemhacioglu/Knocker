@@ -1,4 +1,5 @@
-﻿using KnockerCore;
+﻿using CsvHelper;
+using KnockerCore;
 using KnockerCore.DTO;
 using KnockerCore.DTO.Interface;
 using KnockerCore.Helper;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -363,6 +365,24 @@ namespace Knocker
                 else
                     AddToInfo("ThreadLimitIncreasing", true);
             }
+        }
+
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\" + DateTime.Now.ToString("ddMMyyyyHHmmss") + ".csv"))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(_gridBindingSource);
+                    AddToInfo("Exported", true);
+                }
+            }
+            catch (Exception)
+            {
+                AddToInfo("NotExported", true);
+            }
+
         }
     }
 }

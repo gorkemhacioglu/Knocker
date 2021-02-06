@@ -79,6 +79,15 @@ namespace KnockerUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exported to applciation directory successfully.
+        /// </summary>
+        internal static string Exported {
+            get {
+                return ResourceManager.GetString("Exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starting ip value is not okay. Please review it..
         /// </summary>
         internal static string FromHostIpNotOk {
@@ -102,6 +111,15 @@ namespace KnockerUI {
         internal static string InputAreNotReady {
             get {
                 return ResourceManager.GetString("InputAreNotReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t exported.
+        /// </summary>
+        internal static string NotExported {
+            get {
+                return ResourceManager.GetString("NotExported", resourceCulture);
             }
         }
         

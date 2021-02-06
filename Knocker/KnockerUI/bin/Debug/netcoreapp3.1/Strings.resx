@@ -123,6 +123,9 @@
   <data name="Completed" xml:space="preserve">
     <value>Scanned Succesfully</value>
   </data>
+  <data name="Exported" xml:space="preserve">
+    <value>Exported to applciation directory successfully</value>
+  </data>
   <data name="FromHostIpNotOk" xml:space="preserve">
     <value>Starting ip value is not okay. Please review it.</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="InputAreNotReady" xml:space="preserve">
     <value>Please fix the inputs.</value>
+  </data>
+  <data name="NotExported" xml:space="preserve">
+    <value>Couldn't exported</value>
   </data>
   <data name="PortIsClosed" xml:space="preserve">
     <value>Port is closed</value>
