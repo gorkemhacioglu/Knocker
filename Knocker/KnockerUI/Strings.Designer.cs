@@ -61,6 +61,15 @@ namespace KnockerUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Started.
+        /// </summary>
+        internal static string AppStarted {
+            get {
+                return ResourceManager.GetString("AppStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan Cancelled.
         /// </summary>
         internal static string Cancelled {
@@ -79,7 +88,25 @@ namespace KnockerUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exported to applciation directory successfully.
+        ///   Looks up a localized string similar to Core Started.
+        /// </summary>
+        internal static string CoreStarted {
+            get {
+                return ResourceManager.GetString("CoreStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Task Stopped.
+        /// </summary>
+        internal static string CurrentTaskStopped {
+            get {
+                return ResourceManager.GetString("CurrentTaskStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exported to application directory successfully.
         /// </summary>
         internal static string Exported {
             get {
@@ -111,6 +138,33 @@ namespace KnockerUI {
         internal static string InputAreNotReady {
             get {
                 return ResourceManager.GetString("InputAreNotReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Task Cancelled.
+        /// </summary>
+        internal static string MainTaskCancelled {
+            get {
+                return ResourceManager.GetString("MainTaskCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Task Error.
+        /// </summary>
+        internal static string MainTaskError {
+            get {
+                return ResourceManager.GetString("MainTaskError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Task Running.
+        /// </summary>
+        internal static string MainTaskRunning {
+            get {
+                return ResourceManager.GetString("MainTaskRunning", resourceCulture);
             }
         }
         

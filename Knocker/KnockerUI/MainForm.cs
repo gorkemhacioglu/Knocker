@@ -20,6 +20,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static KnockerCore.Helper.Factory;
+using log4net;
+using log4net.Config;
 
 namespace Knocker
 {
@@ -32,6 +34,8 @@ namespace Knocker
         private ResourceManager _resourceManager = new ResourceManager("KnockerUI.Strings", Assembly.GetExecutingAssembly());
 
         private BindingSource _gridBindingSource = new BindingSource();
+
+        private static readonly ILog _log = LogManager.GetLogger("Knocker");
 
         private Core core = new Core();
 
@@ -48,6 +52,10 @@ namespace Knocker
         public MainForm()
         {
             InitializeComponent();
+
+            log4net.Config.XmlConfigurator.Configure();
+
+            _log.Info(GetFromResource("AppStarted"));
 
             openPortsDataGrid.DataSource = _gridBindingSource;
 
@@ -95,8 +103,10 @@ namespace Knocker
                         }
                         catch (OperationCanceledException)
                         {
+                            _log.Info(GetFromResource("MainTaskCancelled"));
                         }
                         lblStatusIndicator.Text = GetFromResource("Running");
+                        _log.Info(GetFromResource("MainTaskRunning"));
                         _mainStatus.IsRunning = true;
                         btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_stop.png");
                     }
@@ -109,9 +119,9 @@ namespace Knocker
                 else
                     StopCurrentTask();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //ignored
+                _log.Error(GetFromResource("MainTaskError") + " " + ex);
             }
         }
 
@@ -149,17 +159,16 @@ namespace Knocker
 
         private void StopCurrentTask()
         {
-            //Stopping scan
             _tokenSource.Cancel();
             _mainStatus.IsRunning = false;
             _mainTask = null;
             btnStartScan.Image = Image.FromFile(Directory.GetCurrentDirectory() + "\\Images\\button_start.png");
             lblStatusIndicator.Text = GetFromResource("Stopped");
+            _log.Info(GetFromResource("CurrentTaskStopped"));
         }
 
         private bool IsReady()
         {
-
             var stat = _mainStatus.ComponentStatus;
 
             if (stat.isFromHostValid && stat.isFromPortValid && stat.isToHostValid && stat.isToPortValid)
@@ -270,7 +279,7 @@ namespace Knocker
             {
                 var convertedObject = (ThreadStatusDto)data;
 
-                Thread thr = new Thread(() => 
+                Thread thr = new Thread(() =>
                 {
                     if (openPortsDataGrid.InvokeRequired)
                     {
@@ -284,7 +293,7 @@ namespace Knocker
                         _gridBindingSource.Add(convertedObject);
                     }
                 });
-                thr.Start();  
+                thr.Start();
             }
             else if (type == typeof(MainStatusDto).ToString())
             {
@@ -334,6 +343,8 @@ namespace Knocker
         {
             AddToInfo("Completed", false);
 
+            _log.Info(GetFromResource("Completed"));
+
             _mainStatus.IsRunning = false;
 
             if (btnStartScan.InvokeRequired)
@@ -376,11 +387,13 @@ namespace Knocker
                 {
                     csv.WriteRecords(_gridBindingSource);
                     AddToInfo("Exported", true);
+                    _log.Info(GetFromResource("Exported"));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 AddToInfo("NotExported", true);
+                _log.Error(GetFromResource("NotExported") + " " + ex);
             }
 
         }

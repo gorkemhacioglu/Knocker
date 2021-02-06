@@ -1,5 +1,6 @@
 ﻿using KnockerCore.DTO;
 using KnockerCore.Helper;
+using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace KnockerCore
 
         ConcurrentQueue<Thread> _runningThreads = new ConcurrentQueue<Thread>();
 
+        private static readonly ILog _log = LogManager.GetLogger("Knocker");
+
         CancellationToken mainCancellationToken;
 
         public volatile int limitation;
@@ -31,6 +34,7 @@ namespace KnockerCore
         {
             try
             {
+                _log.Info("Core Started");
                 totalCalculatedAddresses = 0;
                 scannedAddresses = 0;
                 limitation = limit;
@@ -103,8 +107,9 @@ namespace KnockerCore
 
                 Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = _runningThreads.Count(), IsCompleted = true, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _log.Error(ex);
                 Broadcaster().Broadcast(typeof(MainStatusDto).ToString(), new MainStatusDto { IsRunning = false, RunningThreadCount = 0, IsCompleted = false, TotalCalculatedAddresses = totalCalculatedAddresses, ScannedAddresses = scannedAddresses });
             }
         }
@@ -140,6 +145,7 @@ namespace KnockerCore
                 }
                 catch (Exception)
                 {
+                    //ignored
                 }
                 Interlocked.Increment(ref scannedAddresses);
             }

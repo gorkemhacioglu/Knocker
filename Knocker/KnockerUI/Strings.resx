@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppStarted" xml:space="preserve">
+    <value>Application Started</value>
+  </data>
   <data name="Cancelled" xml:space="preserve">
     <value>Scan Cancelled</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Scanned Succesfully</value>
   </data>
+  <data name="CoreStarted" xml:space="preserve">
+    <value>Core Started</value>
+  </data>
+  <data name="CurrentTaskStopped" xml:space="preserve">
+    <value>Current Task Stopped</value>
+  </data>
   <data name="Exported" xml:space="preserve">
-    <value>Exported to applciation directory successfully</value>
+    <value>Exported to application directory successfully</value>
   </data>
   <data name="FromHostIpNotOk" xml:space="preserve">
     <value>Starting ip value is not okay. Please review it.</value>
@@ -134,6 +143,15 @@
   </data>
   <data name="InputAreNotReady" xml:space="preserve">
     <value>Please fix the inputs.</value>
+  </data>
+  <data name="MainTaskCancelled" xml:space="preserve">
+    <value>Main Task Cancelled</value>
+  </data>
+  <data name="MainTaskError" xml:space="preserve">
+    <value>Main Task Error</value>
+  </data>
+  <data name="MainTaskRunning" xml:space="preserve">
+    <value>Main Task Running</value>
   </data>
   <data name="NotExported" xml:space="preserve">
     <value>Couldn't exported</value>

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="22.1.2" />
+    <PackageReference Include="log4net" Version="2.0.12" />
   </ItemGroup>
 
   <ItemGroup>

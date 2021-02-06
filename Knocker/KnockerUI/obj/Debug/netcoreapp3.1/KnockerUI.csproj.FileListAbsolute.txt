@@ -43,3 +43,5 @@ C:\Source\Knocker\Knocker\KnockerUI\obj\Debug\netcoreapp3.1\KnockerUI.dll
 C:\Source\Knocker\Knocker\KnockerUI\obj\Debug\netcoreapp3.1\KnockerUI.pdb
 C:\Source\Knocker\Knocker\KnockerUI\obj\Debug\netcoreapp3.1\KnockerUI.genruntimeconfig.cache
 C:\Source\Knocker\Knocker\KnockerUI\bin\Debug\netcoreapp3.1\CsvHelper.dll
+C:\Source\Knocker\Knocker\KnockerUI\bin\Debug\netcoreapp3.1\log4net.dll
+C:\Source\Knocker\Knocker\KnockerUI\bin\Debug\netcoreapp3.1\KnockerUI.dll.config

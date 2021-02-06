@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "u7PWtJLckVATVBIvEpICD5KikJUWLHVJNOgmENVgxwHYK0R40GOa5WkTugfRACTx2ruLpD7aSkl30BXkd+wysQ==",
+  "dgSpecHash": "/DMwqVt/N/mGJPnyxjvd/3NJKSmtecoSYUju7B7wg3eKwt5fsBPY+Z8bYXJ0ogXgid/DOg2cVq5Rs+P6sEvNQw==",
   "success": true,
   "projectFilePath": "C:\\Source\\Knocker\\Knocker\\KnockerCore\\KnockerCore.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gorke\\.nuget\\packages\\log4net\\2.0.12\\log4net.2.0.12.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\gorke\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
     "C:\\Users\\gorke\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
   ],
   "logs": []

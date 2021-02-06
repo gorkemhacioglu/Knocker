@@ -1,0 +1,33 @@
+
+2021-02-06 22:54:13,138 [1] INFO  Knocker - ApplicationStarted
+
+
+2021-02-06 22:55:28,894 [1] INFO  Knocker - Application Started
+
+
+2021-02-06 23:03:56,420 [1] INFO  Knocker - Application Started
+
+
+2021-02-06 23:04:03,916 [1] INFO  Knocker - Main Task Running
+
+
+2021-02-06 23:04:03,924 [6] INFO  Knocker - Core Scan Başladı
+
+2021-02-06 23:04:26,628 [6] INFO  Knocker - Scanned Succesfully
+
+
+2021-02-06 23:06:20,913 [1] INFO  Knocker - Application Started
+
+
+2021-02-06 23:06:30,865 [1] INFO  Knocker - Main Task Running
+
+
+2021-02-06 23:06:30,875 [4] INFO  Knocker - Core Started
+
+2021-02-06 23:06:31,955 [4] ERROR Knocker - System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at KnockerCore.Core.StartScanning(String hostStart, String hostStop, Int32 portStart, Int32 portStop, Int32 limit, CancellationToken token) in C:\Source\Knocker\Knocker\KnockerCore\Core.cs:line 85
+
+2021-02-06 23:06:31,956 [1] INFO  Knocker - Current Task Stopped
+
