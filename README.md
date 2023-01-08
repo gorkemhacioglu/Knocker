@@ -8,4 +8,4 @@
 ```
 Finds open ports on network.
 
-![alt text](http://mytwitchbot.com/images/knockerui.png)
+![image](https://user-images.githubusercontent.com/32572262/211219783-2ea59b1d-e133-47e0-b729-2c1a2638365b.png)
