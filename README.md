@@ -6,6 +6,6 @@
 | |\  \ | | | (_) | (__|   <  __/ |    | | | (_) | |  | |_  /\__/ / (_| (_| | | | | | | |  __/ |   
 \_| \_/_| |_|\___/ \___|_|\_\___|_|    \_|  \___/|_|   \__| \____/ \___\__,_|_| |_|_| |_|\___|_|                                                                                                                    
 ```
-Finds open ports on network.
+Easy scanner to find open ports on the network.
 
 ![image](https://user-images.githubusercontent.com/32572262/211219783-2ea59b1d-e133-47e0-b729-2c1a2638365b.png)
