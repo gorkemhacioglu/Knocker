@@ -53,6 +53,8 @@ namespace Knocker
         {
             InitializeComponent();
 
+            Text += " v2023.1.8";
+
             log4net.Config.XmlConfigurator.Configure();
 
             _log.Info(GetFromResource("AppStarted"));

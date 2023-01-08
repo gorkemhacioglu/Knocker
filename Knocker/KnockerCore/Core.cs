@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using static KnockerCore.Helper.Factory;
@@ -141,7 +142,17 @@ namespace KnockerCore
                 {
                     var result = tcpClient.BeginConnect(ipaddress, port, null, null);
                     tcpClient.EndConnect(result);
-                    Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), new ThreadStatusDto { Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString() }));
+
+                    var threadStatusDto = new ThreadStatusDto
+                        {Id = Thread.CurrentThread.ManagedThreadId, IpAddress = ipaddress, Port = port.ToString()};
+                        
+                    IPAddress.TryParse(ipaddress, out var ip);
+                    if (ip != null)
+                    {
+                        threadStatusDto.MacAddress = GetMacAddress(ip);
+                    }
+
+                    Thread thr = new Thread(() => Broadcaster().Broadcast(typeof(ThreadStatusDto).ToString(), threadStatusDto));
                     thr.Start();
                 }
                 catch (Exception)
@@ -152,6 +163,25 @@ namespace KnockerCore
                 Interlocked.Increment(ref scannedAddresses);
                 return true;
             }
+        }
+        
+        [DllImport("iphlpapi.dll", ExactSpelling = true)]
+        private static extern int SendARP(uint destIp, uint srcIp, byte[] macAddress, ref uint macAddressLength);
+        
+        private static string GetMacAddress(IPAddress address)
+        {
+            byte[] mac = new byte[6];
+            uint len = (uint)mac.Length;
+            byte[] addressBytes = address.GetAddressBytes();
+            uint dest = ((uint)addressBytes[3] << 24)
+                        + ((uint)addressBytes[2] << 16)
+                        + ((uint)addressBytes[1] << 8)
+                        + ((uint)addressBytes[0]);
+            if (SendARP(dest, 0, mac, ref len) != 0)
+            {
+                return "N/A";
+            }
+            return   BitConverter.ToString(mac);
         }
     }
 }
